@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   
-const uri = "mongodb+srv://zainabbhatti808:zainabfirstmay2001@cluster0.i6cukun.mongodb.net/SocialApp";
+const uri =process.env.DB_URI;
   mongoose.connect(uri, {
       autoCreate: true,
       autoIndex: true,

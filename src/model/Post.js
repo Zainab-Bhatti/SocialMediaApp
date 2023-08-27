@@ -13,6 +13,10 @@ const postSchema = new mongoose.Schema(
     likes: {
       type: "number",
       default: 0,
+      user_id: {
+        type: mongoose.Schema.ObjectId,
+        ref: "user",
+      },
     },
     share: {
       type: "number",
@@ -38,7 +42,8 @@ const postSchema = new mongoose.Schema(
     user_id: {
       type: mongoose.Schema.ObjectId,
       ref: "user",
-    },
+    }
+    
   },
   { timestamps: true }
 );

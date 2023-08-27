@@ -2,6 +2,8 @@ import bcryptjs from "bcryptjs";
 import userModel from "../model/User.js";
 import postModel from "../model/Post.js";
 
+
+
 const UserController = {
   getAll: async (req, res) => {
     const users = await userModel.find();
@@ -24,8 +26,7 @@ const UserController = {
       email: body.email,
       password: hashPassword 
     });
-    
-    return res.json({ message: "User successfully registered!", user });
+    return res.json({ message: "User Successfully Registered!",user});
   },
   update: async (req, res) => {
     const body = req.body;
@@ -62,10 +63,21 @@ const UserController = {
     else{
       return res.json(post);
     }    
-  }
+  },
 
  
 
+searchUser: async (req,res)=>{
+ const search=req.body.search;
+  try{
+  const docs = await userModel.find({$or: [{name: {$regex: `${search}`,$options:'i'} },{email: {$regex: `${search}`,$options:'i'} }]} );
+  return res.json(docs);
+}
+catch(error){
+  console.log(error);
+ return  res.status(500).json({message:'an error occured'});
+}
+}
 };
 
 export default UserController;
